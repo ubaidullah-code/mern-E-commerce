@@ -44,12 +44,9 @@ app.use("/api/common/feature", featureRouter);
 mongoose.connect(process.env.DATABASE_URI);
 mongoose.connection.on('connected',()=> console.log("mongodb is connected"))
 mongoose.connection.off('error',(error)=> console.log("mongodb is not connected", error)) 
-
-
-
-const __dirname = path.resolve();
-app.use('/', express.static(path.join(__dirname, './client/build')))
-app.use("/*splat" , express.static(path.join(__dirname, './client/build')))
+app.get("/", (req, res) => {
+  res.send("Hello from Express on Vercel!");
+});
 
 app.listen(PORT, ()=>{
     console.log(`Server is Running ${PORT}`);
